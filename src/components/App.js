@@ -1,10 +1,10 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import Web3 from 'web3'
 import './App.css';
-import MemoryToken from '../abis/MemoryToken.json'
+// import MemoryToken from '../abis/MemoryToken.json'
 import Ranking from'../abis/Ranking.json'
 import brain from '../brain.png'
-import RankTable from './Ranking'
+// import RankTable from './Ranking'
 
 const CARD_ARRAY = [
   {
@@ -94,8 +94,8 @@ class App extends Component {
 
   async loadBlockchainData() {
     const web3 = window.web3
-    const infuraKey = "e4d4bd63d38d414c8e9f280b70c6a830";
-    const web3Eth = new Web3(`https://mainnet.infura.io/v3/${infuraKey}`);
+    // const infuraKey = "e4d4bd63d38d414c8e9f280b70c6a830";
+    // const web3Eth = new Web3(`https://mainnet.infura.io/v3/${infuraKey}`);
     const accounts = await web3.eth.getAccounts()
     
     this.setState({ account: accounts[0] })
@@ -155,7 +155,7 @@ class App extends Component {
       // let balanceOf = await token.methods.balanceOf(accounts[0]).call()
       
     } else {
-      while (this.state.loading == true) {
+      while (this.state.loading === true) {
         this.setState({wallet: false})
         window.alert('Smart contract not deployed to detected network.')
         await this.delay(1500);
@@ -165,8 +165,8 @@ class App extends Component {
   }
   async loadBlockchainDataRepeat() {
     const web3 = window.web3
-    const infuraKey = "e4d4bd63d38d414c8e9f280b70c6a830";
-    const web3Eth = new Web3(`https://mainnet.infura.io/v3/${infuraKey}`);
+    // const infuraKey = "e4d4bd63d38d414c8e9f280b70c6a830";
+    // const web3Eth = new Web3(`https://mainnet.infura.io/v3/${infuraKey}`);
     const accounts = await web3.eth.getAccounts()
 
     this.setState({ account: accounts[0] })
@@ -223,7 +223,7 @@ class App extends Component {
     const optionOneId = this.state.cardsChosenId[0]
     const optionTwoId = this.state.cardsChosenId[1]
     
-    if(optionOneId == optionTwoId) {
+    if(optionOneId === optionTwoId) {
       alert('You have clicked the same image!')
     } else if (this.state.cardsChosen[0] === this.state.cardsChosen[1]) {
       alert('You found a match')
@@ -297,12 +297,12 @@ class App extends Component {
   }
    
   render() {
-    let content, content2
+    // let content, content2
     
-    if (this.state.loading) {
-      content = <p id="loader" className="text-center">Loading... </p> 
-      content2 = <p id="loader" className="text-center">Loading... </p> 
-    }  
+    // if (this.state.loading) {
+    //   content = <p id="loader" className="text-center">Loading... </p> 
+    //   content2 = <p id="loader" className="text-center">Loading... </p> 
+    // }  
 
     return (
       <div>
