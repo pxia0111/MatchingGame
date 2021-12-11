@@ -391,7 +391,7 @@ class App extends Component {
 
                             </tr>
                         </thead>
-                          { <tbody>
+                          {/* <tbody>
                              {
                              this.state.sortItem.map((playerInfo, key) =>                              
                                     (
@@ -402,7 +402,7 @@ class App extends Component {
                                     </tr> 
                               )                                   
                             )}                             
-                        </tbody> }
+                        </tbody>  */}
                     </table>
                   </div>
 
