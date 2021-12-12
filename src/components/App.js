@@ -117,7 +117,7 @@ class App extends Component {
       const address = rankingData.address
       const ranKing = new web3.eth.Contract(abi, address)
       this.setState({ ranKing })
-      console.log(this.state.ranKing)
+      // console.log(this.state.ranKing)
       let name = await this.state.ranKing.methods.players(0).call()
       // this.state.ranKing.methods.completeGame(12).send({from: this.state.account})
       console.log(name)
@@ -128,7 +128,6 @@ class App extends Component {
       let playerIndex = await ranKing.methods.playerIndex().call()
       this.setState({ playerIndex })
       this.state.players = []
-
       let sortItem
       for (var i=0; i < playerIndex; i++) {
         let playerAdd = await ranKing.methods.players(i).call()
@@ -136,15 +135,17 @@ class App extends Component {
         this.setState({
           players: [...this.state.players, playerInfo]
         })
+        
       }
-
+      
       sortItem = [...this.state.players]
-      await sortItem.sort(({score:a}, {score:b}) => {
-          let c = parseInt(b,10) - parseInt(a,10)
-          return c;
-        });
-
+      // await sortItem.sort(({score:a}, {score:b}) => {
+      //     let c = parseInt(b,10) - parseInt(a,10)
+      //     return c;
+      //   });
+      
       this.setState({sortItem})
+      console.log(this.state.sortItem)
       this.setState({score})
 
       this.setState({loading:false})
@@ -268,7 +269,7 @@ class App extends Component {
   completeGame  (amount) {
     console.log(this.state.count)
     console.log(this.state.account)
-
+    // console.log(this.state.sortItem)
     // const rankingData = Ranking.networks[4]
 
     // const address = rankingData.address
@@ -292,7 +293,8 @@ class App extends Component {
       players: [],
       loading: true,
       wallet: true,
-      endGame: false
+      endGame: false,
+      sortItem: []
     }
   }
    
@@ -302,8 +304,9 @@ class App extends Component {
     // if (this.state.loading) {
     //   content = <p id="loader" className="text-center">Loading... </p> 
     //   content2 = <p id="loader" className="text-center">Loading... </p> 
-    // }  
-
+    // }   
+    
+    
     return (
       <div>
         <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -359,7 +362,7 @@ class App extends Component {
                   <div>
                     <button onClick={() => {
                       this.completeGame(this.state.count)
-                    }}>test</button>
+                    }}>End Game! </button>
                   </div>:
                   <div><div>
                   {/* <button onClick={() => {
@@ -391,18 +394,17 @@ class App extends Component {
 
                             </tr>
                         </thead>
-                          {/* <tbody>
-                             {
-                             this.state.sortItem.map((playerInfo, key) =>                              
-                                    (
+                            {/* <tbody id="ranking">
+                              { this.props.sortItem.map((playerInfo, key) => {                             
+                                    return (
                                     <tr key={key}>
-                                         <td>{this.sortItem.indexOf(playerInfo)+1}</td>
+                                         <td>{this.props.sortItem.indexOf(playerInfo)+1}</td>
                                          <td>{playerInfo.plaYer}</td>
                                          <td>{playerInfo.score}</td>
                                     </tr> 
                               )                                   
-                            )}                             
-                        </tbody>  */}
+                              })}                              
+                        </tbody>    */}
                     </table>
                   </div>
 
