@@ -1,5 +1,5 @@
 // const MemoryToken = artifacts.require("MemoryToken");
-const Ranking = artifacts.require("Ranking");
+const Ranking = artifacts.require('Ranking.sol');
 
 module.exports = async function(deployer, network, accounts) {
   if(network ==='rinkeby') {

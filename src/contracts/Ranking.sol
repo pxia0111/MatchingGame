@@ -27,13 +27,13 @@ contract Ranking {
         _owner = msg.sender;
         // lastMoveBlock = block.number;
     }
+    
     function completeGame(uint256 amount) public {
         uint x = amount;
         addRanking(msg.sender, x);
     }
 
-    function addRanking(address player, uint256 amount)
-    internal {
+    function addRanking(address player, uint256 amount) internal {
         if(score[player].score == 0) {
             players.push(player);
             score[player].plaYer = player;

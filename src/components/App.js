@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import Web3 from 'web3'
 import './App.css';
 // import MemoryToken from '../abis/MemoryToken.json'
-import Ranking from'../abis/Ranking.json'
+import Ranking from '../abis/Ranking.json'
 import brain from '../brain.png'
-// import RankTable from './Ranking'
+
+
 
 const CARD_ARRAY = [
   {
@@ -60,13 +61,13 @@ const CARD_ARRAY = [
 
 
 class App extends Component {
-  
+
   async componentWillMount() {
     await this.loadWeb3()
     await this.loadBlockchainData()
 
     this.setState({ cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random()) })
-    
+
     // while (this.state.loading == false) {
     //   if (this.state.wallet == true) {
     //     await this.loadBlockchainDataRepeat()
@@ -97,22 +98,22 @@ class App extends Component {
     // const infuraKey = "e4d4bd63d38d414c8e9f280b70c6a830";
     // const web3Eth = new Web3(`https://mainnet.infura.io/v3/${infuraKey}`);
     const accounts = await web3.eth.getAccounts()
-    
+
     this.setState({ account: accounts[0] })
     // Load  Ranking smart contract
     const networkId = await web3.eth.net.getId()
     const rankingData = Ranking.networks[networkId]
-    this.setState({ networkId: networkId})
+    this.setState({ networkId: networkId })
 
     var conn_Eth = new Web3(new Web3.providers.WebsocketProvider("wss://mainnet.infura.io/ws/v3/e4d4bd63d38d414c8e9f280b70c6a830"));
     const Eth_ranking = new conn_Eth.eth.Contract(Ranking.abi, Ranking.networks[4].address)
 
     Eth_ranking.events.PlayerRank()
-    .on('data', async event => {
-      this.componentWillMount()
-    })    
+      .on('data', async event => {
+        this.componentWillMount()
+      })
 
-    if(rankingData) {
+    if (rankingData) {
       const abi = Ranking.abi
       const address = rankingData.address
       const ranKing = new web3.eth.Contract(abi, address)
@@ -129,41 +130,44 @@ class App extends Component {
       this.setState({ playerIndex })
       this.state.players = []
       let sortItem
-      for (var i=0; i < playerIndex; i++) {
+      for (var i = 0; i < playerIndex; i++) {
         let playerAdd = await ranKing.methods.players(i).call()
         const playerInfo = await ranKing.methods.score(playerAdd).call()
         this.setState({
           players: [...this.state.players, playerInfo]
         })
-        
-      }
-      
-      sortItem = [...this.state.players]
-      // await sortItem.sort(({score:a}, {score:b}) => {
-      //     let c = parseInt(b,10) - parseInt(a,10)
-      //     return c;
-      //   });
-      
-      this.setState({sortItem})
-      console.log(this.state.sortItem)
-      this.setState({score})
 
-      this.setState({loading:false})
-      this.setState({wallet: true})
+      }
+
+      sortItem = [...this.state.players]
+      await sortItem.sort(({ score: a }, { score: b }) => {
+        let c = parseInt(a, 10) - parseInt(b, 10)
+        return c;
+      });
+
+
+      this.setState({ sortItem })      
+      console.log(this.state.sortItem)
+      console.log("abc")
+      this.setState({ score })
+
+      this.setState({ loading: false })
+      this.setState({ wallet: true })
       // const totalSupply = await token.methods.totalSupply().call()
       // this.setState({ totalSupply })
       // // Load Tokens
       // let balanceOf = await token.methods.balanceOf(accounts[0]).call()
-      
+
     } else {
       while (this.state.loading === true) {
-        this.setState({wallet: false})
+        this.setState({ wallet: false })
         window.alert('Smart contract not deployed to detected network.')
         await this.delay(1500);
         await this.loadBlockchainData()
-        }
+      }
     }
   }
+
   async loadBlockchainDataRepeat() {
     const web3 = window.web3
     // const infuraKey = "e4d4bd63d38d414c8e9f280b70c6a830";
@@ -176,29 +180,29 @@ class App extends Component {
 
     // Load Ranking
     const rankingData = Ranking.networks[networkId]
-    if(rankingData) {
-      this.state.players.sort(function (a,b) {
+    if (rankingData) {
+      this.state.players.sort(function (a, b) {
         var keyA = a.score,
-        keyB = b.score;
+          keyB = b.score;
         //compare the 2 scores
         if (keyA > keyB) return -1;
         if (keyB > keyA) return 1;
         return 0;
       });
-      this.setState({ loading:false})
-      this.setState({ wallet:true})
+      this.setState({ loading: false })
+      this.setState({ wallet: true })
     } else {
-      this.setState({ loading:false})
-      this.setState({ wallet:false})
+      this.setState({ loading: false })
+      this.setState({ wallet: false })
     }
   }
 
   chooseImage = (cardId) => {
     cardId = cardId.toString()
-    if(this.state.cardsWon.includes(cardId)) {
+    if (this.state.cardsWon.includes(cardId)) {
       return window.location.origin + '/images/white.png'
     }
-    else if(this.state.cardsChosenId.includes(cardId)) {
+    else if (this.state.cardsChosenId.includes(cardId)) {
       return CARD_ARRAY[cardId].img
     } else {
       return window.location.origin + '/images/blank.png'
@@ -218,18 +222,18 @@ class App extends Component {
     }
   }
 
- 
+
 
   checkForMatch = async () => {
     const optionOneId = this.state.cardsChosenId[0]
     const optionTwoId = this.state.cardsChosenId[1]
-    
-    if(optionOneId === optionTwoId) {
+
+    if (optionOneId === optionTwoId) {
       alert('You have clicked the same image!')
     } else if (this.state.cardsChosen[0] === this.state.cardsChosen[1]) {
       alert('You found a match')
       this.setState({
-        count:this.state.count +1
+        count: this.state.count + 1
       })
       // this.state.token.methods.mint(
       //   this.state.account,
@@ -237,46 +241,52 @@ class App extends Component {
       // )
       // // .send({ from: this.state.account })
       // .on('transactionHash', (hash) => {
-        this.setState({
-          cardsWon: [...this.state.cardsWon, optionOneId, optionTwoId],
-          tokenURIs: [...this.state.tokenURIs, CARD_ARRAY[optionOneId].img]          
-        })
+      this.setState({
+        cardsWon: [...this.state.cardsWon, optionOneId, optionTwoId],
+        tokenURIs: [...this.state.tokenURIs, CARD_ARRAY[optionOneId].img]
+      })
       // })
-      
+
     } else {
       alert('Sorry, try again')
       this.setState({
-        count:this.state.count +1
-      })      
+        count: this.state.count + 1
+      })
     }
     this.setState({
       cardsChosen: [],
       cardsChosenId: [],
-      
+
     })
     if (this.state.cardsWon.length === CARD_ARRAY.length) {
       alert('Congratulations! You found them all!')
-      this.setState({endGame:true})
+      this.setState({ endGame: true })
       console.log(this.state.endGame)
       const amount = this.state.count
       console.log(amount)
-      
+
     }
 
-       
+
   }
 
-  completeGame  (amount) {
+  completeGame(amount) {
     console.log(this.state.count)
     console.log(this.state.account)
-    // console.log(this.state.sortItem)
+    console.log(this.state.sortItem)
     // const rankingData = Ranking.networks[4]
 
     // const address = rankingData.address
     // const ranKing = new window.web3.eth.Contract(Ranking.abi, address)
-    this.state.ranKing.methods.completeGame(amount).send({from: this.state.account})
+    this.state.ranKing.methods.completeGame(amount).send({ from: this.state.account })
+    // let sortItem
+    // sortItem = [...this.state.players]
+    // this.setState({ sortItem })
+    // console.log(this.state.sortItem)
   }
-  
+
+  delay = ms => new Promise(res => setTimeout(res, ms));
+
   constructor(props) {
     super(props)
     this.state = {
@@ -294,19 +304,13 @@ class App extends Component {
       loading: true,
       wallet: true,
       endGame: false,
-      sortItem: []
+      sortItem:[]
+      
     }
   }
-   
+
   render() {
-    // let content, content2
-    
-    // if (this.state.loading) {
-    //   content = <p id="loader" className="text-center">Loading... </p> 
-    //   content2 = <p id="loader" className="text-center">Loading... </p> 
-    // }   
-    
-    
+
     return (
       <div>
         <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -316,8 +320,8 @@ class App extends Component {
             target="_blank"
             rel="noopener noreferrer"
           >
-          <img src={brain} width="30" height="30" className="d-inline-block align-top" alt="" />
-          &nbsp; MatchingGame
+            <img src={brain} width="30" height="30" className="d-inline-block align-top" alt="" />
+            &nbsp; MatchingGame
           </a>
           <ul className="navbar-nav px-3">
             <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
@@ -333,15 +337,15 @@ class App extends Component {
 
                 <div className="grid mb-4" >
 
-                  { this.state.cardArray.map((card, key) => {
-                    return(
+                  {this.state.cardArray.map((card, key) => {
+                    return (
                       <img
                         key={key}
                         src={this.chooseImage(key)}
                         data-id={key}
                         onClick={(event) => {
                           let cardId = event.target.getAttribute('data-id')
-                          if(!this.state.cardsWon.includes(cardId.toString())) {
+                          if (!this.state.cardsWon.includes(cardId.toString())) {
                             this.flipCard(cardId)
                           }
                         }}
@@ -353,27 +357,29 @@ class App extends Component {
                 </div>
 
                 <div>
-                  <h5> 
+                  <h5>
                     Moves: <span id="counter">&nbsp;{this.state.count}</span>
                   </h5>
 
                   <h5>Tokens Collected:<span id="result">&nbsp;{this.state.tokenURIs.length}</span></h5>
+
                   {this.state.endGame ?
-                  <div>
-                    <button onClick={() => {
-                      this.completeGame(this.state.count)
-                    }}>End Game! </button>
-                  </div>:
-                  <div><div>
-                  {/* <button onClick={() => {
+                    <div>
+                      <button onClick={() => {
+                        this.completeGame(this.state.count)
+                      }}> End Game! </button>
+                    </div> :
+                    <div><div>
+                      {/* <button onClick={() => {
                     this.completeGame(this.state.count)
                   }}>testset</button> */}
-                </div></div>
-                }
+                    </div></div>
+                  }
+                  
                   <div className="grid mb-4" >
 
-                    { this.state.tokenURIs.map((tokenURI, key) => {
-                      return(
+                    {this.state.tokenURIs.map((tokenURI, key) => {
+                      return (
                         <img
                           key={key}
                           src={tokenURI}
@@ -382,37 +388,37 @@ class App extends Component {
                     })}
 
                   </div>
-                    
-                  <div className="card mb-4 card-body" >
-                    <h4 className="table table-borderless text-muted text-center"> SpeedMatching Game Ranking <img height='30' alt="" /> </h4>&nbsp;
-                    <table className="table">
+
+                  <div>
+                    <div className="card mb-4 card-body" >
+                      <h4 className="table table-borderless text-muted text-center"> SpeedMatching Game Ranking <img height='30' alt="" /> </h4>&nbsp;
+                      <table className="table">
                         <thead>
-                            <tr>
-                                <th scope="col">Rank</th>
-                                <th scope="col">Player (Address)</th>
-                                <th scope="col">Score</th>
+                          <tr>
+                            <th scope="col">Rank</th>
+                            <th scope="col">Player (Address)</th>
+                            <th scope="col">Score</th>
 
-                            </tr>
+                          </tr>
                         </thead>
-                            {/* <tbody id="ranking">
-                              { this.props.sortItem.map((playerInfo, key) => {                             
-                                    return (
-                                    <tr key={key}>
-                                         <td>{this.props.sortItem.indexOf(playerInfo)+1}</td>
-                                         <td>{playerInfo.plaYer}</td>
-                                         <td>{playerInfo.score}</td>
-                                    </tr> 
-                              )                                   
-                              })}                              
-                        </tbody>    */}
-                    </table>
+                        <tbody id="ranking">
+                          { 
+                             this.state.sortItem.map((playerInfo, key) => {
+                              return (
+                                <tr key={key} >
+                                  <td>{ this.state.sortItem.indexOf(playerInfo) + 1} </td>
+                                  <td>{playerInfo.plaYer}</td>
+                                  <td>{playerInfo.score}</td>
+                                </tr>                                
+                              )
+                            })}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
 
-                  </div>
-                
-
-                </div>                    
-              
+                </div>
+              </div>
             </main>
           </div>
         </div>
