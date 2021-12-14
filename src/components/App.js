@@ -396,8 +396,8 @@ class App extends Component {
                         <thead>
                           <tr>
                             <th scope="col">Rank</th>
-                            <th scope="col">Player (Address)</th>
-                            <th scope="col">Score</th>
+                            <th scope="col">Player(Address)</th>
+                            <th scope="col">Moves</th>
 
                           </tr>
                         </thead>
