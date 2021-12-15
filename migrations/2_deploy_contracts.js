@@ -2,7 +2,7 @@
 const Ranking = artifacts.require('Ranking.sol');
 
 module.exports = async function(deployer, network, accounts) {
-  if(network ==='rinkeby' || network ==='evmostestnet') {
+  if(network ==='rinkeby' || network ==='evmostestnet' || network ==='fxtestnet') {
 
     await deployer.deploy(Ranking)
     const ranking = await Ranking.deployed()

@@ -25,24 +25,33 @@ module.exports = {
         },
         evmostestnet: {
             provider: () => new HDWalletProvider(mnemonic, 'https://ethereum.rpc.evmos.dev'),
-            network_id: 9000,
-            }        
+            network_id: 9000
         },
-        
-        contracts_directory: './src/contracts/',
-        contracts_build_directory: './src/abis/',
-        compilers: {
+        fxtestnet: {
+            provider: () => new HDWalletProvider(mnemonic, 'http://47.89.184.165:8545'),
+            gasPrice: 4000000000000,
+            network_id: 90001
+        },
+        bsctest: {
+            provider: () => new HDWalletProvider(mnemonic, 'https://data-seed-prebsc-1-s1.binance.org:8545/'),
+            network_id: 97
+        }
+    },
 
-            solc: {
-                version: "0.8.0",
-                settings: {
+    contracts_directory: './src/contracts/',
+    contracts_build_directory: './src/abis/',
+    compilers: {
 
-                    optimizer: {
-                        enabled: true,
-                        runs: 200
-                    },
-                    evmVersion: "petersburg"
-                }
+        solc: {
+            version: "0.8.0",
+            settings: {
+
+                optimizer: {
+                    enabled: true,
+                    runs: 200
+                },
+                evmVersion: "petersburg"
             }
         }
-    };
+    }
+};
