@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { useEffect, Component } from 'react';
 import Web3 from 'web3'
 import './App.css';
 // import MemoryToken from '../abis/MemoryToken.json'
 import Ranking from '../abis/Ranking.json'
-import brain from '../brain.png'
+import brain from '../pundix.png'
 
 
 
@@ -71,11 +71,11 @@ class App extends Component {
     // while (this.state.loading == false) {
     //   if (this.state.wallet == true) {
     //     await this.loadBlockchainDataRepeat()
-    //     // await this.delay(1500);
+    //     await this.delay(1500);
     //   } else {
     //     window.alert('Please connect to Metamask wallet to Rinkeby Testnet and refresh webpage.')
     //     await this.loadBlockchainDataRepeat()
-    //     // await this.delay(1500);
+    //     await this.delay(1500);
     //   }
     // }
   }
@@ -84,7 +84,7 @@ class App extends Component {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum)
       await window.ethereum.enable()
-    }
+      }
     else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider)
     }
@@ -92,27 +92,32 @@ class App extends Component {
       window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
     }
   }
+  
 
   async loadBlockchainData() {
     const web3 = window.web3
+    
     // const infuraKey = "e4d4bd63d38d414c8e9f280b70c6a830";
     // const web3Eth = new Web3(`https://mainnet.infura.io/v3/${infuraKey}`);
     const accounts = await web3.eth.getAccounts()
 
     this.setState({ account: accounts[0] })
+    
     // Load  Ranking smart contract
     const networkId = await web3.eth.net.getId()
+    // console.log(networkId)
     const rankingData = Ranking.networks[networkId]
     this.setState({ networkId: networkId })
-
+    console.log(rankingData)
     var conn_Eth = new Web3(new Web3.providers.WebsocketProvider("wss://mainnet.infura.io/ws/v3/e4d4bd63d38d414c8e9f280b70c6a830"));
-    const Eth_ranking = new conn_Eth.eth.Contract(Ranking.abi, Ranking.networks[4].address)
-
+    const Eth_ranking = new conn_Eth.eth.Contract(Ranking.abi, Ranking.networks[9000].address)
+    console.log(Eth_ranking)
     Eth_ranking.events.PlayerRank()
       .on('data', async event => {
         this.componentWillMount()
       })
-
+    
+      
     if (rankingData) {
       const abi = Ranking.abi
       const address = rankingData.address
@@ -122,6 +127,7 @@ class App extends Component {
       let name = await this.state.ranKing.methods.players(0).call()
       // this.state.ranKing.methods.completeGame(12).send({from: this.state.account})
       console.log(name)
+      console.log(address)
 
       let scoreInfo = await ranKing.methods.score(this.state.account).call()
       let score = scoreInfo.score
@@ -166,6 +172,7 @@ class App extends Component {
         await this.loadBlockchainData()
       }
     }
+    
   }
 
   async loadBlockchainDataRepeat() {
@@ -196,7 +203,7 @@ class App extends Component {
       this.setState({ wallet: false })
     }
   }
-
+  
   chooseImage = (cardId) => {
     cardId = cardId.toString()
     if (this.state.cardsWon.includes(cardId)) {
@@ -264,7 +271,7 @@ class App extends Component {
       console.log(this.state.endGame)
       const amount = this.state.count
       console.log(amount)
-
+      
     }
 
 
@@ -279,13 +286,14 @@ class App extends Component {
     // const address = rankingData.address
     // const ranKing = new window.web3.eth.Contract(Ranking.abi, address)
     this.state.ranKing.methods.completeGame(amount).send({ from: this.state.account })
-    // let sortItem
-    // sortItem = [...this.state.players]
-    // this.setState({ sortItem })
-    // console.log(this.state.sortItem)
+   
+    
   }
 
+  
+
   delay = ms => new Promise(res => setTimeout(res, ms));
+  
 
   constructor(props) {
     super(props)
@@ -308,7 +316,7 @@ class App extends Component {
       
     }
   }
-
+  
   render() {
 
     return (
@@ -316,11 +324,11 @@ class App extends Component {
         <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
           <a
             className="navbar-brand col-sm-3 col-md-2 mr-0"
-            href="http://google.com/"
+            href="http://matchingfood.netlify.app/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src={brain} width="30" height="30" className="d-inline-block align-top" alt="" />
+            <img src={brain} width="40" height="40" className="d-inline-block align-top" alt="" />
             &nbsp; MatchingGame
           </a>
           <ul className="navbar-nav px-3">
@@ -389,6 +397,17 @@ class App extends Component {
 
                   </div>
 
+                  {this.state.endGame ?
+                            <div>
+                            <button onClick={() => {
+                        window.location.reload(false)
+                      }}> Refresh here to see your ranking! </button>
+                      </div>:
+                      <div>
+                        
+                      </div>
+                        }
+
                   <div>
                     <div className="card mb-4 card-body" >
                       <h4 className="table table-borderless text-muted text-center"> SpeedMatching Game Ranking <img height='30' alt="" /> </h4>&nbsp;
@@ -397,7 +416,7 @@ class App extends Component {
                           <tr>
                             <th scope="col">Rank</th>
                             <th scope="col">Player(Address)</th>
-                            <th scope="col">Moves</th>
+                            <th scope="col">Score</th>
 
                           </tr>
                         </thead>
@@ -408,16 +427,16 @@ class App extends Component {
                                 <tr key={key} >
                                   <td>{ this.state.sortItem.indexOf(playerInfo) + 1} </td>
                                   <td>{playerInfo.plaYer}</td>
-                                  <td>{playerInfo.score}</td>
+                                  <td>{106 - playerInfo.score}</td>
                                 </tr>                                
                               )
                             })}
-                        </tbody>
+                        </tbody>                        
                       </table>
                     </div>
                   </div>
 
-                </div>
+                </div>               
               </div>
             </main>
           </div>
