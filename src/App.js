@@ -47,11 +47,11 @@ const CARD_ARRAY = [
     }, {
         name: 'Ethereum',
         img: '/images/eth2.jpg'
-    }, 
+    },
     // {
     //     name: 'Atom',
     //     img: '/images/atom2.png'
-    // }, 
+    // },
     {
         name: 'Dogecoin',
         img: '/images/Dogecoin2.png'
@@ -59,36 +59,51 @@ const CARD_ARRAY = [
 ]
 
 
-
 class App extends Component {
-    
-    quickload =() => {
-        const [imgsLoaded, setImgsLoaded] = useState(false) 
-        
+
+    quickload = () => {
+        const [imgsLoaded, setImgsLoaded] = useState(false)
+
         useEffect(() => {
             const loadImage = image => {
-            return new Promise((resolve, reject) => {
-                const loadImg = new Image()
-                loadImg.src =image.url
-                loadImg.onload = () => 
-                setTimeout(() => {
-                    resolve(image.url)
-                }, 2000)
-                loadImg.onerror = err => reject(err)
-            })
-        }
-        Promise.all(CARD_ARRAY.map(image => loadImage(image)))
-        .then(() => setImgsLoaded(true))
-        .catch(err => console.log("Failed to load images", err))
+                return new Promise((resolve, reject) => {
+                    const loadImg = new Image()
+                    loadImg.src = image.url
+
+                    loadImg.onload = () => setTimeout(() => {
+                        resolve(image.url)
+                    }, 2000)
+                    loadImg.onerror = err => reject(err)
+                })
+            } 
+            Promise.all(CARD_ARRAY.map(image => loadImage(image)))
+            .then(() => setImgsLoaded(true))
+            .catch(err => console.log("Failed to load images", err))
         }, [])
-        }
+
+        return (
+            <>
+                {
+                    imgsLoaded ? (CARD_ARRAY.map(image => (
+                        <img key={
+                                image.id
+                            }
+                            src={
+                                image.url
+                            }/>
+                    ))) : (
+                        <h1>Loading images...</h1>
+                    )
+                } 
+            </>
+        )
+    }
 
     async componentWillMount() {
         await this.loadWeb3()
         await this.setState({cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random())})
         await this.loadBlockchainData()
 
-        
 
         // while (this.state.loading == false) {
         // if (this.state.wallet == true) {
@@ -351,7 +366,8 @@ class App extends Component {
             wallet: true,
             endGame: false,
             sortItem: [],
-            promptranking: false
+            promptranking: false,
+            imgsLoaded: []
         }
     }
 
@@ -359,168 +375,166 @@ class App extends Component {
 
 
         return (
-            
+
             <div id="content" className="mt-3">
                 {/* <div className="max-h-screen mx-3 "> */}
-            
-                    <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-                        <a className="navbar-brand col-sm-3 col-md-2 mr-0" href="http://matchingfood.netlify.app/"          target="_blank" 
-                                rel="noopener noreferrer">
-                            <img src={brain}
-                                width="35"
-                                height="35"
-                                className="d-inline-block align-mid"
-                                alt=""/>
-                            &nbsp; Matching Game
-                        </a>
-                        <ul className="navbar-nav px-3 ">
-                            <li className="nav-item ">
-                                <small className="text-white">
-                                    <span id="account">
-                                        {                                        
-                                        this.state.account
-                                    }
-                                    </span>
-                                </small>
-                            </li>
-                        </ul>
-                    </nav>
-                    &nbsp;               
 
-                    <div className=" mt-5 items-center">
-                        
-                            <main role="main" className=" text-center">
-                            
-                                <h1 className="d-4">Collect 6 pair of coins to win !</h1>
-                                    <div class="container" 
-                                        style={{  maxWidth: '50%' }}>
-                                        <div className=' justify-center'>
-                                        {                                
-                                        this.state.cardArray.map((card, key) => {
-                                            return (
-                                                
-                                                    <img className="p-4"                                                     
-                                                        key={key}
-                                                        src={
-                                                            this.chooseImage(key)
-                                                        }
-                                                        data-id={key}
-                                                        onClick={
-                                                            (event) => {
-                                                                let cardId = event.target.getAttribute('data-id')
-                                                                if (!this.state.cardsWon.includes(cardId.toString())) {
-                                                                    this.flipCard(cardId)
-                                                                }
-                                                            }
-                                                        }
-                                                    />
-                                                                                                                                                 
-                                                     );
-                                            })
-                                        }  
-                                        </div>                                                                     
-                                    </div>  &nbsp;                          
-
+                <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+                    <a className="navbar-brand col-sm-3 col-md-2 mr-0" href="http://matchingfood.netlify.app/" target="_blank" rel="noopener noreferrer">
+                        <img src={brain}
+                            width="35"
+                            height="35"
+                            className="d-inline-block align-mid"
+                            alt=""/>
+                        &nbsp; Matching Game
+                    </a>
+                    <ul className="navbar-nav px-3 ">
+                        <li className="nav-item ">
+                            <small className="text-white">
+                                <span id="account">
                                     {
-                                        this.state.endGame ? 
-                                            <div>
-                                            <button onClick={ 
-                                                () => {
-                                                    this.completeGame(this.state.count)
-                                                }}
-                                                type="button"
-                                                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-black hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                                                End Game
-                                            </button>
+                                    this.state.account
+                                }                                
+                                </span>
+                            </small>
+                        </li>
+                    </ul>
+                </nav>
+                &nbsp;
 
-                                        </div> : <div></div>
-                                    } &nbsp;
+                <div className=" mt-5 items-center">
 
-                                    <div>
-                                        <h5>
-                                            Moves:
-                                            <span id="counter">&nbsp;{
-                                                this.state.count
-                                            }</span>
-                                        </h5>
+                    <main role="main" className=" text-center">
 
-                                        <h5>Tokens Collected:<span id="result">&nbsp;{
-                                                this.state.tokenURIs.length
-                                            }</span>
-                                        </h5>
-                                        &nbsp;
-                                        
-                                        <div className="grid mx-4 gap-4">
+                        <h1 className="d-4">Collect 6 pair of coins to win !</h1>
+                        
+                        <div class="container"
+                            style={
+                                {maxWidth: '50%'}
+                        }>
+                            <div className=' justify-center'>
+                                {
+                                this.state.cardArray.map((card, key) => {
+                                    return (
 
+                                        <img className="p-4"
+                                            key={key}
+                                            src={
+                                                this.chooseImage(key)
+                                            }
+                                            data-id={key}
+                                            onClick={
+                                                (event) => {
+                                                    let cardId = event.target.getAttribute('data-id')
+                                                    if (!this.state.cardsWon.includes(cardId.toString())) {
+                                                        this.flipCard(cardId)
+                                                    }
+                                                }
+                                            }/>
+
+                                    );
+                                })
+                            } </div>
+                        </div>
+                        &nbsp; {
+                        this.state.endGame ? <div>
+                            <button onClick={
+                                    () => {
+                                        this.completeGame(this.state.count)
+                                    }
+                                }
+                                type="button"
+                                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-black hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                                End Game
+                            </button>
+
+                        </div> : <div></div>
+                    }
+                        &nbsp;
+
+                        <div>
+                            <h5>
+                                Moves:
+                                <span id="counter">&nbsp;{
+                                    this.state.count
+                                }</span>
+                            </h5>
+
+                            <h5>Tokens Collected:<span id="result">&nbsp;{
+                                    this.state.tokenURIs.length
+                                }</span>
+                            </h5>
+                            &nbsp;
+
+                            <div className="grid mx-4 gap-4">
+
+                                {
+                                this.state.tokenURIs.map((tokenURI, key) => {
+                                    return (
+                                        <img key={key}
+                                            src={tokenURI}/>
+                                    )
+                                })
+                            } </div>
+
+
+                            <div>{
+                                this.state.promptranking ? <div>
+                                    <button onClick={
+                                        () => {
+                                            window.location.reload(false)
+                                        }
+                                    }>
+                                        Check updated ranking!
+                                    </button>
+                                    &nbsp;
+                                </div> : <div></div>
+                            } </div>
+
+                            <div>
+                                <div className="card mb-4 card-body">
+                                    <h4 className="table table-borderless text-muted text-center">
+                                        SpeedMatching Game Ranking
+                                        <img height='30' alt=""/>
+                                    </h4>&nbsp;
+                                    <table className="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Rank</th>
+                                                <th scope="col">Player(Address)</th>
+                                                <th scope="col">Score</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ranking">
                                             {
-                                            this.state.tokenURIs.map((tokenURI, key) => {
+                                            this.state.sortItem.map((playerInfo, key) => {
                                                 return (
-                                                    <img key={key}
-                                                        src={tokenURI}/>
+                                                    <tr key={key}>
+                                                        <td>{
+                                                            this.state.sortItem.indexOf(playerInfo) + 1
+                                                        } </td>
+                                                        <td>{
+                                                            playerInfo.plaYer
+                                                        }</td>
+                                                        <td>{
+                                                            106 - playerInfo.score
+                                                        }</td>
+                                                    </tr>
                                                 )
                                             })
-                                        } </div>
-                                                                                
-                                        
-                                        <div>{
-                                            this.state.promptranking ? <div>
-                                                <button onClick={
-                                                    () => {
-                                                        window.location.reload(false)
-                                                    }
-                                                }>
-                                                    Check updated ranking!
-                                                </button>
-                                                &nbsp;
-                                            </div> : <div>
+                                        } </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
-                                            </div>
-                                        }  </div>
+                        </div>
 
-                                        <div>
-                                            <div className="card mb-4 card-body">
-                                                <h4 className="table table-borderless text-muted text-center">
-                                                    SpeedMatching Game Ranking
-                                                    <img height='30' alt=""/>
-                                                </h4>&nbsp;
-                                                <table className="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">Rank</th>
-                                                            <th scope="col">Player(Address)</th>
-                                                            <th scope="col">Score</th>
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="ranking">
-                                                        {
-                                                        this.state.sortItem.map((playerInfo, key) => {
-                                                            return (
-                                                                <tr key={key}>
-                                                                    <td>{
-                                                                        this.state.sortItem.indexOf(playerInfo) + 1
-                                                                    } </td>
-                                                                    <td>{
-                                                                        playerInfo.plaYer
-                                                                    }</td>
-                                                                    <td>{
-                                                                        106 - playerInfo.score
-                                                                    }</td>
-                                                                </tr>
-                                                            )
-                                                        })
-                                                    } </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                 
-                            </main>
-                        </div> 
+                    </main>
+                </div>
             </div>
-            
-            
+
+
         );
     }
 }
