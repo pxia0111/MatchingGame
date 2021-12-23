@@ -28,7 +28,7 @@ module.exports = {
             network_id: 9000
         },
         fxtestnet: {
-            provider: () => new HDWalletProvider(mnemonic, 'http://47.89.184.165:8545'),
+            provider: () => new HDWalletProvider(mnemonic, 'https://testnet-fx-json-web3.functionx.io:8545/'),
             gasPrice: 4000000000000,
             network_id: 90001
         },

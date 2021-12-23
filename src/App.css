@@ -1,8 +1,16 @@
 /* Styles go here */
 
+
+.App {
+    text-align: right;
+}
+
 .token {
   height: 150px;
   width: 150px;
+  border: 1px solid yellow;
   border-radius: 50%;
   display: inline-block;
 }
+
+ 
