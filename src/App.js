@@ -65,10 +65,10 @@ class App extends Component {
         const [imgsLoaded, setImgsLoaded] = useState(false)
 
         useEffect(() => {
-            const loadImage = image => {
+            const loadImage =image=> {
                 return new Promise((resolve, reject) => {
                     const loadImg = new Image()
-                    loadImg.src = image.url
+                    loadImg.src = image.img
 
                     loadImg.onload = () => setTimeout(() => {
                         resolve(image.url)
@@ -83,26 +83,30 @@ class App extends Component {
 
         return (
             <>
+                <main>
                 {
                     imgsLoaded ? (CARD_ARRAY.map(image => (
                         <img key={
-                                image.id
+                                image.name
                             }
                             src={
                                 image.url
-                            }/>
+                            }
+                            alt="coins"/>
                     ))) : (
                         <h1>Loading images...</h1>
                     )
                 } 
+                </main>
             </>
         )
     }
 
     async componentWillMount() {
-        this.quickload()
+        
         await this.loadWeb3()
         await this.setState({cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random())})
+        await this.quickload()
         await this.loadBlockchainData()
 
 
@@ -368,7 +372,7 @@ class App extends Component {
             endGame: false,
             sortItem: [],
             promptranking: false,
-            imgsLoaded: []
+            imgsLoaded: false
         }
     }
 
@@ -424,6 +428,7 @@ class App extends Component {
                                                 this.chooseImage(key)
                                             }
                                             data-id={key}
+                                            alt="coins"
                                             onClick={
                                                 (event) => {
                                                     let cardId = event.target.getAttribute('data-id')
@@ -473,7 +478,8 @@ class App extends Component {
                                 this.state.tokenURIs.map((tokenURI, key) => {
                                     return (
                                         <img key={key}
-                                            src={tokenURI}/>
+                                            src={tokenURI}
+                                            alt="coins"/>
                                     )
                                 })
                             } </div>
