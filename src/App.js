@@ -1,4 +1,4 @@
-import React, {useEffect, Component} from 'react';
+import React, {useState, useEffect, Component} from 'react';
 import Web3 from 'web3'
 // import './index.css';
 // import MemoryToken from '../abis/MemoryToken.json'
@@ -59,7 +59,29 @@ const CARD_ARRAY = [
 ]
 
 
+
 class App extends Component {
+    
+    quickload =() => {
+        const [imgsLoaded, setImgsLoaded] = useState(false) 
+        
+        useEffect(() => {
+            const loadImage = image => {
+            return new Promise((resolve, reject) => {
+                const loadImg = new Image()
+                loadImg.src =image.url
+                loadImg.onload = () => 
+                setTimeout(() => {
+                    resolve(image.url)
+                }, 2000)
+                loadImg.onerror = err => reject(err)
+            })
+        }
+        Promise.all(CARD_ARRAY.map(image => loadImage(image)))
+        .then(() => setImgsLoaded(true))
+        .catch(err => console.log("Failed to load images", err))
+        }, [])
+        }
 
     async componentWillMount() {
         await this.loadWeb3()
