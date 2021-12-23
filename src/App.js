@@ -68,7 +68,10 @@ class App extends Component {
         await this.loadWeb3()
         await this.setState({cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random())})
         await this.loadBlockchainData()
-        await this.quickload()
+        this.props.CARD_ARRAY.forEach((picture) => {
+            const pic=new Image();
+            pic.src = picture.img;
+        })
 
         // while (this.state.loading == false) {
         // if (this.state.wallet == true) {
@@ -216,46 +219,46 @@ class App extends Component {
         }
     }
 
-    quickload = () => {
-        const [imgsLoaded, setImgsLoaded] = useState(false)
+    // quickload = () => {
+    //     const [imgsLoaded, setImgsLoaded] = useState(false)
 
-        useEffect(() => {
-            const loadImage =image=> {
-                return new Promise((resolve, reject) => {
-                    const loadImg = new Image()
-                    loadImg.src = image.img
+    //     useEffect(() => {
+    //         const loadImage =image=> {
+    //             return new Promise((resolve, reject) => {
+    //                 const loadImg = new Image()
+    //                 loadImg.src = image.img
 
-                    loadImg.onload = () => setTimeout(() => {
-                        resolve(image.url)
-                    }, 2000)
-                    loadImg.onerror = err => reject(err)
-                })
-            } 
-            Promise.all(CARD_ARRAY.map(image => loadImage(image)))
-            .then(() => setImgsLoaded(true))
-            .catch(err => console.log("Failed to load images", err))
-        }, [])
+    //                 loadImg.onload = () => setTimeout(() => {
+    //                     resolve(image.url)
+    //                 }, 2000)
+    //                 loadImg.onerror = err => reject(err)
+    //             })
+    //         } 
+    //         Promise.all(CARD_ARRAY.map(image => loadImage(image)))
+    //         .then(() => setImgsLoaded(true))
+    //         .catch(err => console.log("Failed to load images", err))
+    //     }, [])
 
-        return (
-            <>
-                <main>
-                {
-                    imgsLoaded ? (CARD_ARRAY.map(image => (
-                        <img key={
-                                image.name
-                            }
-                            src={
-                                image.url
-                            }
-                            alt="coins"/>
-                    ))) : (
-                        <h1>Loading images...</h1>
-                    )
-                } 
-                </main>
-            </>
-        )
-    }
+    //     return (
+    //         <>
+    //             <main>
+    //             {
+    //                 imgsLoaded ? (CARD_ARRAY.map(image => (
+    //                     <img key={
+    //                             image.name
+    //                         }
+    //                         src={
+    //                             image.url
+    //                         }
+    //                         alt="coins"/>
+    //                 ))) : (
+    //                     <h1>Loading images...</h1>
+    //                 )
+    //             } 
+    //             </main>
+    //         </>
+    //     )
+    // }
 
     chooseImage = (cardId) => {
         cardId = cardId.toString()
@@ -373,7 +376,7 @@ class App extends Component {
             endGame: false,
             sortItem: [],
             promptranking: false,
-            imgsLoaded: false
+            pictures: []
         }
     }
 
