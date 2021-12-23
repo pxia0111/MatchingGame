@@ -63,7 +63,7 @@ class App extends Component {
 
     async componentWillMount() {
         await this.loadWeb3()
-        this.setState({cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random())})
+        await this.setState({cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random())})
         await this.loadBlockchainData()
 
         
@@ -240,7 +240,7 @@ class App extends Component {
         })
 
         if (alreadyChosen == 1) {
-            setTimeout(this.checkForMatch, 100)
+            setTimeout(this.checkForMatch, 50)
         }
     }
 
