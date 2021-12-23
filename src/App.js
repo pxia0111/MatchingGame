@@ -100,6 +100,7 @@ class App extends Component {
     }
 
     async componentWillMount() {
+        this.quickload()
         await this.loadWeb3()
         await this.setState({cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random())})
         await this.loadBlockchainData()
