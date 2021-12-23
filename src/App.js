@@ -61,54 +61,14 @@ const CARD_ARRAY = [
 
 class App extends Component {
 
-    quickload = () => {
-        const [imgsLoaded, setImgsLoaded] = useState(false)
-
-        useEffect(() => {
-            const loadImage =image=> {
-                return new Promise((resolve, reject) => {
-                    const loadImg = new Image()
-                    loadImg.src = image.img
-
-                    loadImg.onload = () => setTimeout(() => {
-                        resolve(image.url)
-                    }, 2000)
-                    loadImg.onerror = err => reject(err)
-                })
-            } 
-            Promise.all(CARD_ARRAY.map(image => loadImage(image)))
-            .then(() => setImgsLoaded(true))
-            .catch(err => console.log("Failed to load images", err))
-        }, [])
-
-        return (
-            <>
-                <main>
-                {
-                    imgsLoaded ? (CARD_ARRAY.map(image => (
-                        <img key={
-                                image.name
-                            }
-                            src={
-                                image.url
-                            }
-                            alt="coins"/>
-                    ))) : (
-                        <h1>Loading images...</h1>
-                    )
-                } 
-                </main>
-            </>
-        )
-    }
+    
 
     async componentWillMount() {
         
         await this.loadWeb3()
         await this.setState({cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random())})
-        await this.quickload()
         await this.loadBlockchainData()
-
+        await this.quickload()
 
         // while (this.state.loading == false) {
         // if (this.state.wallet == true) {
@@ -254,6 +214,47 @@ class App extends Component {
             this.setState({loading: false})
             this.setState({wallet: false})
         }
+    }
+
+    quickload = () => {
+        const [imgsLoaded, setImgsLoaded] = useState(false)
+
+        useEffect(() => {
+            const loadImage =image=> {
+                return new Promise((resolve, reject) => {
+                    const loadImg = new Image()
+                    loadImg.src = image.img
+
+                    loadImg.onload = () => setTimeout(() => {
+                        resolve(image.url)
+                    }, 2000)
+                    loadImg.onerror = err => reject(err)
+                })
+            } 
+            Promise.all(CARD_ARRAY.map(image => loadImage(image)))
+            .then(() => setImgsLoaded(true))
+            .catch(err => console.log("Failed to load images", err))
+        }, [])
+
+        return (
+            <>
+                <main>
+                {
+                    imgsLoaded ? (CARD_ARRAY.map(image => (
+                        <img key={
+                                image.name
+                            }
+                            src={
+                                image.url
+                            }
+                            alt="coins"/>
+                    ))) : (
+                        <h1>Loading images...</h1>
+                    )
+                } 
+                </main>
+            </>
+        )
     }
 
     chooseImage = (cardId) => {
