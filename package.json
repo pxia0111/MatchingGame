@@ -6,6 +6,7 @@
     "@babel/polyfill": "^7.12.1",
     "@craco/craco": "^6.4.3",
     "@openzeppelin/contracts": "^4.4.0",
+    "@openzeppelin/contracts-upgradeable": "^4.4.2",
     "@truffle/hdwallet-provider": "^2.0.0",
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
@@ -16,6 +17,7 @@
     "react-dom": "16.11.0",
     "react-router-dom": "^6.1.1",
     "react-scripts": "^5.0.0",
+    "truffle": "^5.4.26",
     "web3": "1.2.2"
   },
   "scripts": {

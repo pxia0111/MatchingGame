@@ -1,0 +1,611 @@
+{
+  "manifestVersion": "3.2",
+  "proxies": [
+    {
+      "address": "0x40e1F51a85841dc15412c308Cc571FC25A4Ab70a",
+      "txHash": "0xd54f0f56cfc0184a092ed03f8479c15ce64fbc821fadbe57e9420dcb9081ca0a",
+      "kind": "uups"
+    },
+    {
+      "address": "0x3515377E1ac19C2C4e53B0C5329DbD4Ac3B5D530",
+      "txHash": "0x673cbf1e5a2eb4c67b31a1cfb2717a20c8bcfa5389a422801d53b636792c7ae1",
+      "kind": "uups"
+    },
+    {
+      "address": "0x608dCb3AF7f04D876601b75f4343D37732993362",
+      "txHash": "0x977289438cbed66e4b3e8a6d0e8aa85bfaeaccaa5811932cfad0f853a37ed70f",
+      "kind": "uups"
+    },
+    {
+      "address": "0x04Ac2B695b6a2fE6060F9cc6586c7dFf2154E3Ef",
+      "txHash": "0xb3078dcac762f1f290829a9bfa1074c2fac65a062006196c0d63ece45f04f99e",
+      "kind": "uups"
+    },
+    {
+      "address": "0xDe46a8984Fed1EdD7C1995BF9B03bf0664FFAAc0",
+      "txHash": "0x99ec1d05c092c383a8ed8f2b8a2233d23ec68191dc2bb60f9c41db64bc92dbf8",
+      "kind": "uups"
+    },
+    {
+      "address": "0x8Fe9f8ABC666Cbc2cB26e65CaA27c4d47b627981",
+      "txHash": "0xf1eb2a8ee4cc05cfa21a35782e82ec9d405b7268aa5ae97f048cafcd20e025ef",
+      "kind": "uups"
+    },
+    {
+      "address": "0x01adE1a60b25697Fe9682a7829a4D1302f650560",
+      "txHash": "0xcb92d3cd42dee12458886660ff5ac2d8a540b56f204780ef5249b08bf4e07e9f",
+      "kind": "uups"
+    },
+    {
+      "address": "0x8429CbB820427B62F2ce6F2a6340b928820C303D",
+      "txHash": "0xf6d4c0a99b83d62747be7aeb134a7d64d14bdf07e06a11a14a8885d111f670fa",
+      "kind": "uups"
+    },
+    {
+      "address": "0x089E15f5bD41114Ba0F018005470638fEb438FB8",
+      "txHash": "0x3070436c5c9c65ac79a65fc3a27e983ccfab0beeefd472c014dd144b7ffd6add",
+      "kind": "uups"
+    },
+    {
+      "address": "0xA2c668906b31289D68D2ebd74Dc663b15D2D20dA",
+      "txHash": "0x66c78e3ddd8147ce035dd934a595d0babc5163a4b6bf99bc53acf06a42ecd27a",
+      "kind": "uups"
+    },
+    {
+      "address": "0xB085aa196eB82F4EB0f059e718B703EEAB2c24d9",
+      "txHash": "0x029497efd237be539ef5378a0ee7340a1e926625b40acbf584a778f7121ee4e7",
+      "kind": "uups"
+    },
+    {
+      "address": "0x14e7fF70e09e034CF426d198D90DFa6C85dBAB82",
+      "txHash": "0x303ed22032ded20555d8c804f92dc89765333015c98bb99316d4947ede1736fb",
+      "kind": "uups"
+    },
+    {
+      "address": "0xE6EEcF1ac73225725a68597Bfccd62d70A71dC6c",
+      "txHash": "0x7fae7374617f3947d06edf6fbe4dda5e6e415816e3cfbb9b7cd56232ba319de3",
+      "kind": "uups"
+    },
+    {
+      "address": "0x5330eB328838B8a82a8900d3cf1ce2c9a32934d1",
+      "txHash": "0x63fb4d50a6220e30e29d6873c0019a1604ad9b0c7f74a52e63156acb53111013",
+      "kind": "uups"
+    }
+  ],
+  "impls": {
+    "8e40d12ddd549eb5cbff00e9ca898aaa25aa0c49604c2afb8035aef3c5ef3206": {
+      "address": "0x34C401157Ef325D1cbbB454Ab23C408a71ABf127",
+      "txHash": "0x2f006151d2b6ce17b39129dd0ea28c8c15f36da2449b5ab88736b0f627715b49",
+      "layout": {
+        "storage": [
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_bool",
+            "src": "..\\..\\@openzeppelin\\contracts\\access\\IAccessControlEnumerable.sol:32"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "..\\..\\@openzeppelin\\contracts\\access\\IAccessControlEnumerable.sol:32"
+          },
+          {
+            "contract": "ERC1967UpgradeUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "..\\..\\@openzeppelin\\contracts\\access\\AccessControlEnumerable.sol:65"
+          },
+          {
+            "contract": "UUPSUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "..\\..\\@openzeppelin\\contracts\\security\\Pausable.sol:92"
+          },
+          {
+            "contract": "ContextUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "..\\..\\@openzeppelin\\contracts-upgradeable\\utils\\ContextUpgradeable.sol:31"
+          },
+          {
+            "contract": "PausableUpgradeable",
+            "label": "_paused",
+            "type": "t_bool",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\ERC721.sol:32"
+          },
+          {
+            "contract": "PausableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\ERC721.sol:79"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "_owner",
+            "type": "t_address",
+            "src": "..\\..\\@openzeppelin\\contracts\\access\\AccessControl.sol:20"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "..\\..\\@openzeppelin\\contracts\\access\\AccessControl.sol:78"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "name",
+            "type": "t_string_storage",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:26"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "symbol",
+            "type": "t_string_storage",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:26"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "totalSupply",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "decimals",
+            "type": "t_uint8",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "minimumSupply",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "admins",
+            "type": "t_array(t_address)dyn_storage",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "liqPool",
+            "type": "t_address",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "disPool",
+            "type": "t_address",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "burnPercent",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "liqPercent",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "disPercent",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "_averageInterval",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "_getRewardEndTime",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "_getRewardStartTime",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "_numOfDaysPerMth",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "_monthlyDistributePr",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "_percentageDistribute",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "_lastRewardStartTime",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "_totalSupply",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "balanceOf",
+            "type": "t_mapping(t_address,t_uint256)",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "allowance",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "isAdmin",
+            "type": "t_mapping(t_address,t_bool)",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "isWhitelistedTo",
+            "type": "t_mapping(t_address,t_bool)",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "isWhitelistedFrom",
+            "type": "t_mapping(t_address,t_bool)",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "accAmount",
+            "type": "t_mapping(t_address,t_struct(AccAmount)1612_storage)",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol:28"
+          }
+        ],
+        "types": {
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_uint8": {
+            "label": "uint8"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+            "label": "mapping(address => mapping(address => uint256))"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)"
+          },
+          "t_bool": {
+            "label": "bool"
+          },
+          "t_mapping(t_address,t_struct(AccAmount)1612_storage)": {
+            "label": "mapping(address => struct PurseTokenUpgradable.AccAmount)"
+          },
+          "t_struct(AccAmount)1612_storage": {
+            "label": "struct PurseTokenUpgradable.AccAmount",
+            "members": [
+              {
+                "label": "amount",
+                "type": "t_uint256"
+              },
+              {
+                "label": "accReward",
+                "type": "t_uint256"
+              },
+              {
+                "label": "lastUpdateTime",
+                "type": "t_uint256"
+              }
+            ]
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]"
+          }
+        }
+      }
+    },
+    "b8b3a56d9d664f8e97647c2601a796988d01256cfc245e72cf466ff9d8799ab8": {
+      "address": "0x3C4734FAE46627D0c650d3D503D034efe7791B32",
+      "txHash": "0xf1a4b4bdbd8800c49921827de256c63d286f8c79e677f9b2f59d89a30f061f10",
+      "layout": {
+        "storage": [
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_bool",
+            "src": "..\\..\\@openzeppelin\\contracts\\access\\IAccessControlEnumerable.sol:32"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "..\\..\\@openzeppelin\\contracts\\access\\IAccessControlEnumerable.sol:32"
+          },
+          {
+            "contract": "ERC1967UpgradeUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "..\\..\\@openzeppelin\\contracts\\access\\AccessControlEnumerable.sol:65"
+          },
+          {
+            "contract": "UUPSUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "..\\..\\@openzeppelin\\contracts\\security\\Pausable.sol:92"
+          },
+          {
+            "contract": "ContextUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "..\\..\\@openzeppelin\\contracts-upgradeable\\utils\\ContextUpgradeable.sol:31"
+          },
+          {
+            "contract": "PausableUpgradeable",
+            "label": "_paused",
+            "type": "t_bool",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\ERC721.sol:32"
+          },
+          {
+            "contract": "PausableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\ERC721.sol:79"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "_owner",
+            "type": "t_address",
+            "src": "..\\..\\@openzeppelin\\contracts\\access\\AccessControl.sol:20"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "..\\..\\@openzeppelin\\contracts\\access\\AccessControl.sol:78"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "name",
+            "type": "t_string_storage",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:22"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "symbol",
+            "type": "t_string_storage",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:22"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "totalSupply",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:22"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "decimals",
+            "type": "t_uint8",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:23"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "minimumSupply",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:24"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "admins",
+            "type": "t_array(t_address)dyn_storage",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:25"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "liqPool",
+            "type": "t_address",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:25"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "disPool",
+            "type": "t_address",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:26"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "burnPercent",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:26"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "liqPercent",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:26"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "disPercent",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:27"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "_averageInterval",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:29"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "_getRewardEndTime",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:30"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "_getRewardStartTime",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:32"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "_numOfDaysPerMth",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:34"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "_monthlyDistributePr",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:36"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "_percentageDistribute",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:38"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "_lastRewardStartTime",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:38"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "_totalSupply",
+            "type": "t_uint256",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:39"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "balanceOf",
+            "type": "t_mapping(t_address,t_uint256)",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:41"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "allowance",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:43"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "isAdmin",
+            "type": "t_mapping(t_address,t_bool)",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:46"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "isWhitelistedTo",
+            "type": "t_mapping(t_address,t_bool)",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:47"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "isWhitelistedFrom",
+            "type": "t_mapping(t_address,t_bool)",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:49"
+          },
+          {
+            "contract": "PurseTokenUpgradable",
+            "label": "accAmount",
+            "type": "t_mapping(t_address,t_struct(AccAmount)1690_storage)",
+            "src": "..\\..\\@openzeppelin\\contracts\\token\\ERC721\\presets\\ERC721PresetMinterPauserAutoId.sol:49"
+          }
+        ],
+        "types": {
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_uint8": {
+            "label": "uint8"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+            "label": "mapping(address => mapping(address => uint256))"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)"
+          },
+          "t_bool": {
+            "label": "bool"
+          },
+          "t_mapping(t_address,t_struct(AccAmount)1690_storage)": {
+            "label": "mapping(address => struct PurseTokenUpgradable.AccAmount)"
+          },
+          "t_struct(AccAmount)1690_storage": {
+            "label": "struct PurseTokenUpgradable.AccAmount",
+            "members": [
+              {
+                "label": "amount",
+                "type": "t_uint256"
+              },
+              {
+                "label": "accReward",
+                "type": "t_uint256"
+              },
+              {
+                "label": "lastUpdateTime",
+                "type": "t_uint256"
+              }
+            ]
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]"
+          }
+        }
+      }
+    }
+  }
+}

@@ -16,7 +16,7 @@ module.exports = {
             network_id: "*" // Match any network id
         },
         rinkeby: {
-            provider: () => new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/e4d4bd63d38d414c8e9f280b70c6a830`),
+            provider: () => new HDWalletProvider(mnemonic, `wss://rinkeby.infura.io/ws/v3/e4d4bd63d38d414c8e9f280b70c6a830`),
             network_id: 4, // Ropsten's id
             gas: 5500000, // Ropsten has a lower block limit than mainnet
             confirmations: 2, // # of confs to wait between deployments. (default: 0)
@@ -30,12 +30,19 @@ module.exports = {
         fxtestnet: {
             provider: () => new HDWalletProvider(mnemonic, 'https://testnet-fx-json-web3.functionx.io:8545/'),
             gasPrice: 4000000000000,
-            network_id: 90001
+            network_id: 90001,
+            networkCheckTimeout: 1000000,
+            timeoutBlocks: 200
         },
         bsctest: {
             provider: () => new HDWalletProvider(mnemonic, 'https://data-seed-prebsc-1-s1.binance.org:8545/'),
             network_id: 97
-        }
+        },
+        richardnet: {
+            provider: () => new HDWalletProvider(mnemonic, 'http://47.89.184.165:8545/'),
+            gasPrice: 4000000000000,
+            network_id: 90001
+        },
     },
 
     contracts_directory: './src/contracts/',
@@ -43,7 +50,7 @@ module.exports = {
     compilers: {
 
         solc: {
-            version: "0.8.0",
+            version: "0.8.2",
             settings: {
 
                 optimizer: {

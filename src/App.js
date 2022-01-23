@@ -3,6 +3,9 @@ import Web3 from 'web3'
 // import './index.css';
 // import MemoryToken from '../abis/MemoryToken.json'
 import Ranking from './abis/Ranking.json'
+import Token from './abis/Token.json'
+// import PurseTokenUpgradable from './abis/PurseTokenUpgradable.json'
+// import checkReward from './abis/checkReward.json'
 import brain from './pundix.png'
 
 
@@ -61,17 +64,16 @@ const CARD_ARRAY = [
 
 class App extends Component {
 
-    
 
     async componentWillMount() {
-        
+
         await this.loadWeb3()
-        await this.setState({cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random())})
         await this.loadBlockchainData()
-        this.props.CARD_ARRAY.forEach((picture) => {
-            const pic=new Image();
-            pic.src = picture.img;
-        })
+        // await this.setState({cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random())})
+        // this.props.CARD_ARRAY.forEach((picture) => {
+        //     const pic=new Image();
+        //     pic.src = picture.img;
+        // })
 
         // while (this.state.loading == false) {
         // if (this.state.wallet == true) {
@@ -103,32 +105,56 @@ class App extends Component {
         // const infuraKey = "e4d4bd63d38d414c8e9f280b70c6a830";
         // const web3Eth = new Web3(`https://mainnet.infura.io/v3/${infuraKey}`);
         const accounts = await web3.eth.getAccounts()
-
         this.setState({account: accounts[0]})
 
-        // Load  Ranking smart contract
+
         const networkId = await web3.eth.net.getId()
-        // console.log(networkId)
-        const rankingData = Ranking.networks[networkId]
         this.setState({networkId: networkId})
-        // console.log(rankingData)
-        var conn_Eth = new Web3(new Web3.providers.WebsocketProvider("wss://mainnet.infura.io/ws/v3/e4d4bd63d38d414c8e9f280b70c6a830"));
-        const Eth_ranking = new conn_Eth.eth.Contract(Ranking.abi, Ranking.networks[9000].address)
-        console.log(Eth_ranking)
-        Eth_ranking.events.PlayerRank().on('data', async event => {
-            this.componentWillMount()
-        })
+        // // console.log(networkId)
 
+        // // const gameControl = checkReward.networks[networkId]
 
+        // // console.log(rankingData)
+        // var conn_Eth = new Web3(new Web3.providers.WebsocketProvider("wss://mainnet.infura.io/ws/v3/e4d4bd63d38d414c8e9f280b70c6a830"));
+        // const Eth_ranking = new conn_Eth.eth.Contract(Ranking.abi, Ranking.networks[90001].address)
+        // console.log(Eth_ranking)
+        // // const game_Control = new conn_Eth.eth.Contract(checkReward.abi, checkReward.networks[90001].address)
+        // // console.log(game_Control)
+
+        // Eth_ranking.events.PlayerRank().on('data', async event => {
+        //     this.componentWillMount()
+        // })
+
+        // if (gameControl) {
+        //     const abi = checkReward.abi
+        //     const address = gameControl.address
+        //     const Control = new web3.eth.Contract(abi,address)
+        //     this.setState({Control})
+        // }
+        // Load  Ranking smart contract
+        const tokenData = Token.networks[networkId]
+        if (tokenData) {
+
+            const token = new web3.eth.Contract(Token.abi, tokenData.address)
+            this.setState({token})
+            let tokenBalance = await this.state.token.methods.balanceOf(this.state.account).call()
+            this.setState({tokenBalance: tokenBalance.toString()})
+
+        } else {
+            window.alert('Token contract not deployed to detected network.')
+        }
+
+        const rankingData = Ranking.networks[networkId]
         if (rankingData) {
-            const abi = Ranking.abi
-            const address = rankingData.address
-            const ranKing = new web3.eth.Contract(abi, address)
+            // const abi = Ranking.abi
+            // const address = rankingData.address
+            const ranKing = new web3.eth.Contract(Ranking.abi, rankingData.address)
             this.setState({ranKing})
-            // console.log(this.state.ranKing)
+            console.log(this.state.ranKing)
+
             let name = await this.state.ranKing.methods.players(0).call()
             // this.state.ranKing.methods.completeGame(12).send({from: this.state.account})
-            // console.log(name)
+            console.log(name)
             // console.log(address)
 
             let scoreInfo = await ranKing.methods.score(this.state.account).call()
@@ -147,7 +173,6 @@ class App extends Component {
                         playerInfo
                     ]
                 })
-
             }
 
             sortItem = [...this.state.players]
@@ -158,10 +183,9 @@ class App extends Component {
                 return c;
             });
 
-
             this.setState({sortItem})
             console.log(this.state.sortItem)
-            console.log("abc")
+            // console.log("abc")
             this.setState({score})
 
             this.setState({loading: false})
@@ -170,6 +194,16 @@ class App extends Component {
             // this.setState({ totalSupply })
             // // Load Tokens
             // let balanceOf = await token.methods.balanceOf(accounts[0]).call()
+
+
+            // else {
+            //     while (this.state.loading === true) {
+            //         this.setState({wallet: false})
+            //         window.alert('Smart contract not deployed to detected network.')
+            //         await this.delay(1500);
+            //         await this.loadBlockchainData()
+            //     }
+            // }
 
         } else {
             while (this.state.loading === true) {
@@ -233,7 +267,7 @@ class App extends Component {
     //                 }, 2000)
     //                 loadImg.onerror = err => reject(err)
     //             })
-    //         } 
+    //         }
     //         Promise.all(CARD_ARRAY.map(image => loadImage(image)))
     //         .then(() => setImgsLoaded(true))
     //         .catch(err => console.log("Failed to load images", err))
@@ -254,7 +288,7 @@ class App extends Component {
     //                 ))) : (
     //                     <h1>Loading images...</h1>
     //                 )
-    //             } 
+    //             }
     //             </main>
     //         </>
     //     )
@@ -340,14 +374,27 @@ class App extends Component {
 
     }
 
+    // faucet () {
+    //     this.state.ranKing.methods.transfer(this.state.account, 1000).send({from: this.state.account})
+    // }
+
+    transferPurse(amount) {
+        // console.log(this.state.account)
+        // const bet = 1000000000000
+        this.state.ranKing.methods.startGame().send({from: this.state.account})
+        this.setState({startGame: true})
+
+    }
+
+
     completeGame(amount) {
         console.log(this.state.count)
         console.log(this.state.account)
         console.log(this.state.sortItem)
         // const rankingData = Ranking.networks[4]
-
         // const address = rankingData.address
         // const ranKing = new window.web3.eth.Contract(Ranking.abi, address)
+
         this.state.ranKing.methods.completeGame(amount).send({from: this.state.account})
         this.setState({promptranking: true})
 
@@ -362,6 +409,9 @@ class App extends Component {
         this.state = {
             account: 'Not Connected',
             ranKing: {},
+            token: {},
+            tokenBalance: '0',
+            startGame: false,
             // token: null,
             // totalSupply: 0,
             tokenURIs: [],
@@ -383,69 +433,101 @@ class App extends Component {
     render() {
 
 
-        return (
+        return (<div id="content" className="mt-3">
+            {/* <div className="max-h-screen mx-3 "> */}
 
-            <div id="content" className="mt-3">
-                {/* <div className="max-h-screen mx-3 "> */}
-
-                <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-                    <a className="navbar-brand col-sm-3 col-md-2 mr-0" href="http://matchingfood.netlify.app/" target="_blank" rel="noopener noreferrer">
-                        <img src={brain}
-                            width="35"
-                            height="35"
-                            className="d-inline-block align-mid"
-                            alt=""/>
-                        &nbsp; Matching Game
-                    </a>
-                    <ul className="navbar-nav px-3 ">
-                        <li className="nav-item ">
-                            <small className="text-white">
-                                <span id="account">
-                                    {
-                                    this.state.account
-                                }                                
-                                </span>
-                            </small>
-                        </li>
-                    </ul>
-                </nav>
-                &nbsp;
-
-                <div className=" mt-5 items-center">
-
-                    <main role="main" className=" text-center">
-
-                        <h1 className="d-4">Collect 6 pair of coins to win !</h1>
-                        
-                        <div class="container"
-                            style={
-                                {maxWidth: '50%'}
-                        }>
-                            <div className=' justify-center'>
+            <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+                <a className="navbar-brand col-sm-3 col-md-2 mr-0" href="http://matchingfood.netlify.app/" target="_blank" rel="noopener noreferrer">
+                    <img src={brain}
+                        width="35"
+                        height="35"
+                        className="d-inline-block align-mid"
+                        alt=""/>
+                    &nbsp; Matching Game
+                </a>
+                <ul className="navbar-nav px-3 ">
+                    <li className="nav-item ">
+                        <small className="text-white">
+                            <span id="account">
                                 {
-                                this.state.cardArray.map((card, key) => {
-                                    return (
+                                this.state.account
+                            } </span>
+                        </small>
+                    </li>
+                </ul>
+                {/* <div>
+                        <label className="float-left">
+                            <b>Input</b>
+                        </label>
+                        <span className="float-right text-muted">
+                            Balance: {
+                            window.web3.utils.fromWei(this.props.tokenBalance, 'Ether')
+                        } </span>
+                    </div> */} </nav>
+            &nbsp;
 
-                                        <img className="p-4"
-                                            key={key}
-                                            src={
-                                                this.chooseImage(key)
-                                            }
-                                            data-id={key}
-                                            alt="coins"
-                                            onClick={
-                                                (event) => {
-                                                    let cardId = event.target.getAttribute('data-id')
-                                                    if (!this.state.cardsWon.includes(cardId.toString())) {
-                                                        this.flipCard(cardId)
-                                                    }
+            <div className=" mt-5 items-center">
+
+                <main role="main" className=" text-center">
+
+                    <h1 className="d-4">Collect 6 pair of coins to win !</h1>
+
+
+                    <div class="container"
+                        style={
+                            {maxWidth: '50%'}
+                    }>
+                        <div className=' justify-center'>
+                            <div> {/* <div>
+                                        <button onClick={
+                                                () => {
+                                                    this.faucet();
                                                 }
-                                            }/>
+                                            }
+                                            type="button">
+                                            faucet
+                                        </button>
+                                    </div> */}
+                                <div></div>
+                                <button onClick={
+                                        () => {
+                                            this.transferPurse();
+                                            this.setState({cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random())})
+                                            this.props.CARD_ARRAY.forEach((picture) => {
+                                                const pic = new Image();
+                                                pic.src = picture.img;
+                                            })
+                                        }
+                                    }
+                                    type="button">
+                                    Easy mode start!
+                                </button>
+                                &nbsp;
+                            </div>
 
-                                    );
-                                })
-                            } </div>
-                        </div>
+                            {
+                            this.state.cardArray.map((card, key) => {
+                                return (
+
+                                    <img className="p-4"
+                                        key={key}
+                                        src={
+                                            this.chooseImage(key)
+                                        }
+                                        data-id={key}
+                                        alt="coins"
+                                        onClick={
+                                            (event) => {
+                                                let cardId = event.target.getAttribute('data-id')
+                                                if (!this.state.cardsWon.includes(cardId.toString())) {
+                                                    this.flipCard(cardId)
+                                                }
+                                            }
+                                        }/>
+
+                                );
+                            })
+                        } </div>
                         &nbsp; {
                         this.state.endGame ? <div>
                             <button onClick={
@@ -459,7 +541,7 @@ class App extends Component {
                             </button>
 
                         </div> : <div></div>
-                    }
+                        }
                         &nbsp;
 
                         <div>
@@ -513,7 +595,7 @@ class App extends Component {
                                             <tr>
                                                 <th scope="col">Rank</th>
                                                 <th scope="col">Player(Address)</th>
-                                                <th scope="col">Score</th>
+                                                <th scope="col">Move </th>
 
                                             </tr>
                                         </thead>
@@ -529,7 +611,7 @@ class App extends Component {
                                                             playerInfo.plaYer
                                                         }</td>
                                                         <td>{
-                                                            106 - playerInfo.score
+                                                            playerInfo.score
                                                         }</td>
                                                     </tr>
                                                 )
@@ -540,14 +622,15 @@ class App extends Component {
                             </div>
 
                         </div>
-
+                    </div>
                     </main>
+                    
                 </div>
             </div>
 
 
-        );
-    }
-}
-
-export default App;
+            );
+                }
+            }
+            
+            export default App;
