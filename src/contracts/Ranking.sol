@@ -150,11 +150,7 @@ contract Ranking {
             emit Scoredeclare(player, amount, 6);
             // emit updateReward(multi);             
         }
-        else 
-        if (amount <= score[player].score) {
-        score[player].score = amount;
-        emit Scoredeclare(player, amount, 0);
-        }                
+                     
     }
     
 }

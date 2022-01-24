@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Component} from 'react';
+import React, {lazy, useState, useEffect, Component} from 'react';
 import Web3 from 'web3'
 // import './index.css';
 // import MemoryToken from '../abis/MemoryToken.json'
@@ -9,7 +9,7 @@ import Token from './abis/Token.json'
 import brain from './pundix.png'
 
 
-const CARD_ARRAY = [
+const CARD_ARRAY = lazy(() => [
     {
         name: 'Tether',
         img: '/images/Tether2.png'
@@ -59,7 +59,7 @@ const CARD_ARRAY = [
         name: 'Dogecoin',
         img: '/images/Dogecoin2.png'
     }
-]
+])
 
 
 class App extends Component {
