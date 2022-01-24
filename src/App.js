@@ -9,7 +9,7 @@ import Token from './abis/Token.json'
 import brain from './pundix.png'
 
 
-const CARD_ARRAY = lazy(() => [
+const CARD_ARRAY = [
     {
         name: 'Tether',
         img: '/images/Tether2.png'
@@ -59,7 +59,7 @@ const CARD_ARRAY = lazy(() => [
         name: 'Dogecoin',
         img: '/images/Dogecoin2.png'
     }
-])
+]
 
 
 class App extends Component {
